@@ -80,19 +80,23 @@ Texture::~Texture()
 }
 
 
-void Texture::Draw(int x, int y, int w, int h)
+void Texture::Draw(int x, int y, int w, int h, int flags)
 {
-	//Setup the destination rectangle to be at the position we want
-	SDL_Rect dst;
-	dst.x = x;
-	dst.y = y;
-	dst.w = w;
-	dst.h = h;
-	if( w==-1 || h==-1)
+	if (flags & DRAW_FULLSCREEN)
 	{
-		//Query the texture to get its width and height to use
-		SDL_QueryTexture(m_texture, NULL, NULL, &dst.w, &dst.h);
+		SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
 	}
-	SDL_RenderCopy(m_renderer, m_texture, NULL, &dst);
+	else
+	{
+		SDL_Rect rect;
+		rect.x = x;
+		rect.y = y;
+		rect.w = w;
+		rect.h = h;
 
+		if( w == -1 ) SDL_QueryTexture(m_texture, NULL, NULL, &rect.w, NULL);
+		if( h == -1 ) SDL_QueryTexture(m_texture, NULL, NULL, NULL, &rect.h);
+
+		SDL_RenderCopy(m_renderer, m_texture, NULL, &rect);
+	}
 }

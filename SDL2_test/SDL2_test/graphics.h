@@ -33,11 +33,11 @@ public:
 	Texture( SDL_Texture *t, SDL_Renderer *r);
 	~Texture();
 
-	void Draw( int x=0, int y=0, int w=-1, int h=-1 );
+	void Draw( int x=0, int y=0, int w=-1, int h=-1, int flags=0 );
 
 protected:
 	SDL_Texture *m_texture;
 	SDL_Renderer *m_renderer;
 };
-
+#define DRAW_FULLSCREEN 1
 #endif
