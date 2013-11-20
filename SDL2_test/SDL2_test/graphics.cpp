@@ -66,16 +66,10 @@ Texture* Renderer::LoadTexture(const std::string &file)
 		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0xFF, 0, 0xFF ) );
 
 		//Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface( , loadedSurface );
+        newTexture = SDL_CreateTextureFromSurface(m_renderer , loadedSurface );
 		if( newTexture == NULL )
 		{
 			printf( "Unable to create texture from %s! SDL Error: %s\n", file.c_str(), SDL_GetError() );
-		}
-		else
-		{
-			//Get image dimensions
-			mWidth = loadedSurface->w;
-			mHeight = loadedSurface->h;
 		}
 
 		//Get rid of old loaded surface
