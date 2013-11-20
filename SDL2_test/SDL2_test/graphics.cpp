@@ -75,13 +75,12 @@ Texture* Renderer::LoadTexture(const std::string &file)
 		//Get rid of old loaded surface
 		SDL_FreeSurface( loadedSurface );
 	}
-	SDL_Texture *texture = IMG_LoadTexture(m_renderer, file.c_str());
 	
 	//Make sure converting went ok too
-	if( texture != nullptr )
+	if( newTexture != nullptr )
 	{
 		//Create our internal texture structure
-		Texture *t = new Texture( texture, m_renderer );
+		Texture *t = new Texture( newTexture, m_renderer );
 		return t;
 	}
 	else
